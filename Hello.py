@@ -1,4 +1,4 @@
-class Main'
+class Main:
     def __init__(self):
         pass
 
