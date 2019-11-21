@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Atcoder necoak answer
-# https://atcoder.jp/contests/abc126/tasks/abc145_a
+# https://atcoder.jp/contests/abc145/tasks/abc145_a
 
 circle_r_text = input()
 circle_r = int(circle_r_text)
