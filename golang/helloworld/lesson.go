@@ -1,43 +1,27 @@
 package main // mainパッケージの用意が必要
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
-	/*
-		// numeric
-		var (
-			u8  uint8     = 255
-			i8  int8      = 127
-			f32 float32   = 0.2
-			c64 complex64 = -5 + 12i
-		)
-		fmt.Println(u8, i8, f32, c64)
-		fmt.Printf("type=%T value=%v", u8, u8)
-	*/
-	/*
-		// arithmetic operator
-		fmt.Println("1+1=", 1+1)
-		fmt.Println("10-1=", 10-1)
-		fmt.Println("10/2=", 10/2)
-		fmt.Println("10/3=", 10/3)
-		fmt.Println("10.0/3=", 10.0/3)
-		fmt.Println("10/3.0=", 10/3.0)
-		fmt.Println("10%2=", 10%2)
-		fmt.Println("10%3=", 10%3)
-	*/
-	/*
-		//	inclement, decliment
-		x := 0
-		fmt.Println(x)
-		x++
-		fmt.Println(x)
-		x--
-		fmt.Println(x)
-	*/
-	// Shift
-	fmt.Println(1 << 0)
-	fmt.Println(1 << 1)
-	fmt.Println(1 << 2)
-	fmt.Println(1 << 3)
+	fmt.Println("Hello World")
+	fmt.Println("Hello " + "World")
+	fmt.Println("Hello World"[0])
+	fmt.Println(string("Hello World"[0]))
 
+	var s string = "Hello World"
+	fmt.Println(strings.Replace(s, "H", "X", 1))
+	fmt.Println(s)
+	s = strings.Replace(s, "H", "X", 1)
+
+	fmt.Println(strings.Contains(s, "World"))
+
+	fmt.Println(`Test
+                                     Test
+Test`)
+
+	fmt.Println("\"")
+	fmt.Println(`"`)
 }
