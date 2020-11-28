@@ -2,26 +2,25 @@ package main // mainパッケージの用意が必要
 
 import (
 	"fmt"
-	"strings"
 )
 
 func main() {
-	fmt.Println("Hello World")
-	fmt.Println("Hello " + "World")
-	fmt.Println("Hello World"[0])
-	fmt.Println(string("Hello World"[0]))
+	var t, f bool = true, false
+	//t, f := true, false // これでもいい
+	fmt.Printf("%T %v\n", t, t)
+	fmt.Printf("%T %v\n", f, f)
 
-	var s string = "Hello World"
-	fmt.Println(strings.Replace(s, "H", "X", 1))
-	fmt.Println(s)
-	s = strings.Replace(s, "H", "X", 1)
+	fmt.Printf("%T %v %t\n", 0, 0, 0)
+	fmt.Printf("%T %v %t\n", 1, 1, 1)
 
-	fmt.Println(strings.Contains(s, "World"))
+	fmt.Println(true && true)
+	fmt.Println(true && false)
+	fmt.Println(false && false)
 
-	fmt.Println(`Test
-                                     Test
-Test`)
+	fmt.Println(true || true)
+	fmt.Println(true || false)
+	fmt.Println(false || false)
 
-	fmt.Println("\"")
-	fmt.Println(`"`)
+	fmt.Println(!true)
+	fmt.Println(!false)
 }
