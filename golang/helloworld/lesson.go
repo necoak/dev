@@ -2,23 +2,24 @@ package main // mainパッケージの用意が必要
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func main() {
 
-	var x int = 1
-	xx := float64(x)
-	fmt.Printf("%T %v %f\n", xx, xx, xx)
+	// array
+	var a [2]int
+	a[0] = 100
+	a[1] = 200
+	fmt.Println(a)
 
-	var y float64 = 1.2
-	yy := int(y)
-	fmt.Printf("%T %v %d\n", yy, yy, yy)
-
-	i, _ := strconv.Atoi("14")
-	fmt.Printf("%T %v\n", i, i)
-
-	h := "Hello World"
-	fmt.Printf("%T %v\n", h[0], h[0])
-	fmt.Printf("%T %v\n", string(h[0]), string(h[0]))
+	/*
+		// array
+		var b [2]int = [2]int{100, 200}
+		fmt.Println(b)
+	*/
+	// slice
+	// slice can be append.
+	var b []int = []int{100, 200}
+	b = append(b, 300)
+	fmt.Println(b)
 }
