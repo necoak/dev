@@ -1,36 +1,36 @@
 package main // mainパッケージの用意が必要
 
-import (
-	"fmt"
-)
+import "fmt"
+
+func my_print(var_name string, val []int) {
+	fmt.Printf("["+var_name+"] len=%d cap=%d value=%v\n", len(val), cap(val), val)
+}
 
 func main() {
 
-	n := []int{1, 2, 3, 4, 5, 6}
-	fmt.Println(n)
-	fmt.Println(n[2])
-	fmt.Println(n[2:4])
-	fmt.Println(n[:2])
-	fmt.Println(n[2:])
-	fmt.Println(n[:])
+	n := make([]int, 3, 5)
+	my_print("n", n)
 
-	fmt.Println("---------------")
+	n1 := append(n, 0, 0)
+	my_print("n", n)
+	my_print("n1", n1)
 
-	n[2] = 100
-	fmt.Println(n)
+	n2 := append(n1, 1, 2, 3, 4, 5)
+	my_print("n2", n2)
 
-	fmt.Println("---------------")
+	a := make([]int, 3)
+	my_print("a", a)
 
-	var board = [][]int{
-		[]int{0, 1, 2},
-		[]int{3, 4, 5},
-		[]int{6, 7, 8},
+	b := make([]int, 0)
+	var c []int
+	my_print("b", b)
+	my_print("c", c)
+
+	c = make([]int, 0, 5)
+	for i := 0; i < 5; i++ {
+		c = append(c, i)
+		fmt.Println(c)
 	}
-	fmt.Println(board)
-
-	fmt.Println("---------------")
-
-	n = append(n, 100, 200, 300, 400)
-	fmt.Println(n)
+	fmt.Println(c)
 
 }
