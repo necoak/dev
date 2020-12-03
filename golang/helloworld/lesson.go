@@ -8,29 +8,27 @@ func my_print(var_name string, val []int) {
 
 func main() {
 
-	n := make([]int, 3, 5)
-	my_print("n", n)
+	m := map[string]int{"apple": 100, "banana": 200}
+	fmt.Println(m)
+	fmt.Println(m["apple"])
+	m["banana"] = 300
+	fmt.Println(m)
+	m["new"] = 500
+	fmt.Println(m)
 
-	n1 := append(n, 0, 0)
-	my_print("n", n)
-	my_print("n1", n1)
+	fmt.Println(m["nothing"])
 
-	n2 := append(n1, 1, 2, 3, 4, 5)
-	my_print("n2", n2)
+	v, ok := m["apple"]
+	fmt.Println(v, ok)
 
-	a := make([]int, 3)
-	my_print("a", a)
+	v2, ok2 := m["nothing"]
+	fmt.Println(v2, ok2)
 
-	b := make([]int, 0)
-	var c []int
-	my_print("b", b)
-	my_print("c", c)
+	m2 := make(map[string]int)
+	m2["pc"] = 5000
+	fmt.Println(m2)
 
-	c = make([]int, 0, 5)
-	for i := 0; i < 5; i++ {
-		c = append(c, i)
-		fmt.Println(c)
-	}
-	fmt.Println(c)
-
+	var m3 map[string]int
+	m3["pc"] = 5000
+	fmt.Println(m3)
 }
