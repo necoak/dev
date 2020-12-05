@@ -2,20 +2,33 @@ package main // mainパッケージの用意が必要
 
 import "fmt"
 
-func calc(x int, y int) (int, int) {
-	return x + y, x - y
+func incrementGenerator() func() int {
+	x := 0
+	return func() int {
+		x++
+		return x
+	}
 }
 
-func calc2(price int, item int) (result int) {
-	result = price * item
-	// return result
-	return
+func circleArea(pi float64) func(radius float64) float64 {
+	return func(radius float64) float64 {
+		return radius * radius * pi
+	}
+
 }
 
 func main() {
-	r1, r2 := calc(10, 20)
-	fmt.Println(r1, r2)
+	counter := incrementGenerator()
+	fmt.Println(counter())
+	fmt.Println(counter())
+	fmt.Println(counter())
 
-	r3 := calc2(100, 2)
-	fmt.Println(r3)
+	c1 := circleArea(3.14)
+	fmt.Println(c1(1))
+	fmt.Println(c1(2))
+
+	c2 := circleArea(3)
+	fmt.Println(c2(1))
+	fmt.Println(c2(2))
+
 }
