@@ -54,14 +54,14 @@ for i in range(1, L+1, 1):
 
 # last jump patttern(action2)
 if L-1 >= 0:
-    min_cost[L] = min(min_cost[L], min_cost[L-1] + (T1 / 2) + (T2 / 2) )
+    min_cost[L] = min(min_cost[L], min_cost[L-1] + (T1 // 2) + (T2 // 2) )
 
 # last jump pattern (action3) -2
 if L-2 >= 0:
-    min_cost[L] = min(min_cost[L], min_cost[L-2] + (T1 / 2) + T2 + (T2 / 2) )
+    min_cost[L] = min(min_cost[L], min_cost[L-2] + (T1 // 2) + T2 + (T2 // 2) )
 
 # last jump pattern (action3) -3
 if L-3 >= 0:
-    min_cost[L] = min(min_cost[L], min_cost[L-3] + (T1 / 2) + (T2 * 2) + (T2 / 2) )
+    min_cost[L] = min(min_cost[L], min_cost[L-3] + (T1 // 2) + (T2 * 2) + (T2 // 2) )
 
 print(min_cost[L])
