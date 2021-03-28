@@ -31,6 +31,7 @@ for i in range(q):
         a = si[1] # 販売する枚数
         
         # 奇数番号を売るが売れるか？
+        if zan_min
         can_sell = True
         for j in range(0, n, 2):
             if c_list[j] < a:
@@ -61,3 +62,4 @@ for i in range(q):
     # print(c_list, selled_cnt)
 
 print(selled_cnt)
+
