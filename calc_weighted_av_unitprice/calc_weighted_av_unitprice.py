@@ -56,16 +56,17 @@ class Calc:
         unitprice_hour_patterns = self.get_unitprice_hour_patterns()
         #print(list(unitprice_hour_patterns))
         for unitprice_hour_pattern in unitprice_hour_patterns:
+            #print('.', end='')
             total_hour = 0
             total_price = 0
             for i_unitprice_hour in unitprice_hour_pattern:
-                print(i_unitprice_hour)
-                print(i_unitprice_hour['hour'])
+                #print(i_unitprice_hour)
+                #print(i_unitprice_hour['hour'])
                 total_hour += i_unitprice_hour['hour']
-                total_price += i_unitprice_hour['total_price']
+                total_price += i_unitprice_hour['price']
             
             # 総額が条件にはまるか
-            if not(self.allowable_max_amount <= total_price <= self.allowable_min_amount):
+            if not(self.allowable_max_of_amount <= total_price <= self.allowable_min_of_amount):
                 continue
 
             # 加重平均単金を計算
@@ -106,8 +107,12 @@ class Calc:
     def get_unitprice_hour_patterns(self):
         each_patterns = []
         for unitprice_hour_pair in self.unitprice_hour_pairs:
-            each_patterns.append(self.get_unitprice_hour_pattern(unitprice_hour_pair))
+            each_patterns += self.get_unitprice_hour_pattern(unitprice_hour_pair)
         patterns = itertools.combinations(each_patterns, len(self.unitprice_hour_pairs))
+
+        #print('######')
+        #print(list(patterns))
+        #print('######')
         return patterns
     
     def get_unitprice_hour_pattern(self, unitprice_hour_pair):
