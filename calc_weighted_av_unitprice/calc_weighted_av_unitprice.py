@@ -99,12 +99,19 @@ class Calc:
                 continue
             
             for month_hour in matched_month_hours:
-                print('総額:' + str(total_price) + ' 単金:' + str(wav_unit_price) + ' 時間:' + str(total_hour) + ' 時間/1人月:' + str(month_hour) + ' 人月:' + str(total_hour // month_hour) + '.' +str( ((total_hour % month_hour)*1000)//month_hour) )
-                print(str(unitprice_hour_pattern))
+                print(
+                    '総額:' + str(total_price) + 
+                    ' 単金:' + str(wav_unit_price) +
+                    ' 時間:' + str(total_hour) +
+                    ' 時間/1人月:' + str(month_hour) +
+                    ' 人月:' + str(total_hour // month_hour) + '.' +str( ((total_hour % month_hour)*1000)//month_hour) + 
+                    ' 単金組合せ:' + str(unitprice_hour_pattern))
                 ans_cnt += 1
             
         if ans_cnt == 0:
-            print('Anser doesnt exist.')
+            print('Answer doesnt exist.')
+        else:
+            print('Answer cnt: ' + str(ans_cnt))
 
     def calc_manmonth(self, hour, monthhour):
         return Decimal(hour / monthhour).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
@@ -112,23 +119,24 @@ class Calc:
     def get_unitprice_hour_patterns(self):
         each_patterns = []
         for unitprice_hour_pair in self.unitprice_hour_pairs:
-            each_patterns += self.get_unitprice_hour_pattern(unitprice_hour_pair)
-        #patterns = list(itertools.combinations(each_patterns, len(self.unitprice_hour_pairs)))
-        patterns = itertools.combinations(each_patterns, len(self.unitprice_hour_pairs))
-
-        print('######')
-        #print(patterns)
-        print('######')
-
-        return patterns
+            each_patterns.append(self.get_unitprice_hour_pattern(unitprice_hour_pair))
+        kumiawase_patterns = self.get_patterns(each_patterns, [], [])
+        return kumiawase_patterns
     
+    def get_patterns(self, patterns, selected, kumiawase):
+        if len(patterns) == 0:
+            kumiawase.append(selected)
+            return kumiawase
+        patterns1 = patterns[0]
+        for pattern in patterns1:
+            tmp_selected = selected + [pattern]
+            kumiawase = self.get_patterns(patterns[1:], tmp_selected, kumiawase)
+        return kumiawase
+
     def get_unitprice_hour_pattern(self, unitprice_hour_pair):
         result = []
-        print(unitprice_hour_pair)
         for i_unitprice in range(unitprice_hour_pair['allowable_min_unitprice'], unitprice_hour_pair['allowable_max_unitprice']+1, unitprice_hour_pair['minunit_of_unitprice']):
-            print(i_unitprice)
             for i_hour in range(unitprice_hour_pair['allowable_min_hour'], unitprice_hour_pair['allowable_max_hour']+1, unitprice_hour_pair['minunit_of_hour']):
-                print(str(i_hour))
                 result.append(
                     {'name': unitprice_hour_pair['name'],
                      'hour': i_hour,
