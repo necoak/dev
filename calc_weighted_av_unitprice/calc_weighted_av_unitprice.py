@@ -12,11 +12,9 @@ class Calc:
         self.allowable_max_unitprice = int(input()) # 許容最大単金
         self.minunit_of_unitprice = int(input())    # 単金最小単位
 
-        self.allowable_min_of_monthhour = 150 # 許容最小人時/1人月
-        self.allowable_max_of_monthhour = 200 # 許容最大人時/1人月
+        self.allowable_min_of_monthhour = int(input()) # 許容最小人時/1人月
+        self.allowable_max_of_monthhour = int(input()) # 許容最大人時/1人月
         self.minunit_of_monthhour = int(input())    # 月時間数最小単位
-
-        self.minunit_of_manhour = Decimal(input()) # 人月最小単位
 
         self.allowable_min_of_amount = int(input()) # 許容最小総額
         self.allowable_max_of_amount = int(input()) # 許容最大総額
@@ -66,7 +64,8 @@ class Calc:
                 total_price += i_unitprice_hour['price']
             
             # 総額が条件にはまるか
-            if not(self.allowable_max_of_amount <= total_price <= self.allowable_min_of_amount):
+            if not(self.allowable_min_of_amount <= total_price <= self.allowable_max_of_amount):
+                #print('err1: ' + str(unitprice_hour_pattern))
                 continue
 
             # 加重平均単金を計算
@@ -74,15 +73,19 @@ class Calc:
             # 加重平均単金は条件にはまるか
             ## 加重平均単金が割り切れること
             if (total_price % total_hour) != 0:
+                #print('err2: ' + str(unitprice_hour_pattern))
                 continue
             ## 加重平均単金が最小単位以上であること
             if wav_unit_price % self.minunit_of_unitprice != 0:
+                #print('err3: ' + str(unitprice_hour_pattern))
                 continue
             ## 加重平均単金が許容範囲内に収まっていること
             if not(self.allowable_min_unitprice <= wav_unit_price <= self.allowable_max_unitprice):
+                #print('err3: ' + str(unitprice_hour_pattern))
                 continue
             # 時間数が条件にはまるか
             if not(self.allowable_min_of_totalhour <= total_hour <= self.allowable_max_of_totalhour):
+                #print('err4: ' + str(unitprice_hour_pattern))
                 continue
             # 人月換算は条件にはまるか
             matched_month_hours = []
@@ -92,10 +95,12 @@ class Calc:
                     continue
                 matched_month_hours.append(month_hour)
             if len(matched_month_hours) == 0:
+                #print('err5: ' + str(unitprice_hour_pattern))
                 continue
             
             for month_hour in matched_month_hours:
-                print('総額: ' + str(total_price) + '単金: ' + str(wav_unit_price) + ' 時間: ' + str(total_hour) + '時間/1人月: ' + str(month_hour) + ' 人月: ' + str(total_hour // month_hour))
+                print('総額:' + str(total_price) + ' 単金:' + str(wav_unit_price) + ' 時間:' + str(total_hour) + ' 時間/1人月:' + str(month_hour) + ' 人月:' + str(total_hour // month_hour) + '.' +str( ((total_hour % month_hour)*1000)//month_hour) )
+                print(str(unitprice_hour_pattern))
                 ans_cnt += 1
             
         if ans_cnt == 0:
@@ -108,20 +113,22 @@ class Calc:
         each_patterns = []
         for unitprice_hour_pair in self.unitprice_hour_pairs:
             each_patterns += self.get_unitprice_hour_pattern(unitprice_hour_pair)
+        #patterns = list(itertools.combinations(each_patterns, len(self.unitprice_hour_pairs)))
         patterns = itertools.combinations(each_patterns, len(self.unitprice_hour_pairs))
 
-        #print('######')
-        #print(list(patterns))
-        #print('######')
+        print('######')
+        #print(patterns)
+        print('######')
+
         return patterns
     
     def get_unitprice_hour_pattern(self, unitprice_hour_pair):
         result = []
-        #print(unitprice_hour_pair)
-        for i_unitprice in range(unitprice_hour_pair['allowable_min_unitprice'], unitprice_hour_pair['allowable_max_unitprice'], unitprice_hour_pair['minunit_of_unitprice']):
-            #print(i_unitprice)
-            for i_hour in range(unitprice_hour_pair['allowable_min_hour'], unitprice_hour_pair['allowable_max_hour'], unitprice_hour_pair['minunit_of_hour']):
-                #print(str(i_hour))
+        print(unitprice_hour_pair)
+        for i_unitprice in range(unitprice_hour_pair['allowable_min_unitprice'], unitprice_hour_pair['allowable_max_unitprice']+1, unitprice_hour_pair['minunit_of_unitprice']):
+            print(i_unitprice)
+            for i_hour in range(unitprice_hour_pair['allowable_min_hour'], unitprice_hour_pair['allowable_max_hour']+1, unitprice_hour_pair['minunit_of_hour']):
+                print(str(i_hour))
                 result.append(
                     {'name': unitprice_hour_pair['name'],
                      'hour': i_hour,
